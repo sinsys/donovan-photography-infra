@@ -1,0 +1,52 @@
+service: swiftterm-donovan-infra
+
+frameworkVersion: ">=2.x <3.0.0"
+
+useDotenv: true
+
+package:
+  individually: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  tags:
+    Name: ${self:service}-${self:custom.stage}
+    appl: swiftterm
+    enddate: "2099-12-31"
+    environment: swiftterm${self:custom.stage}
+    region: ${self:provider.region}
+    supportedby: sya
+    portfolio: portfolio-id04
+    supportchannel: "mail:e8b936ad.symetra.com@amer.teams.ms"
+  webpack:
+    webpackConfig: ./webpack.config.js
+  dotenv:
+    exclude:
+      - IAM_ROLE_NAME
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${opt:region, 'us-west-2'}
+
+  lambdaHashingVersion: 20201221
+
+  stackTags:
+    ${self:custom.tags}
+  tags:
+    ${self:custom.tags}
+
+  deploymentBucket:
+    name: swiftterm-deployment-${self:custom.stage}
+
+  iam:
+    role: !Sub arn:aws:iam::${AWS::AccountId}:role/${env:IAM_ROLE_NAME}
+
+functions:
+  hello:
+    handler: src/handler.hello
+    name: ${self:service}-${self:custom.stage}
