@@ -8,14 +8,15 @@
     "lint": "eslint --ext .ts .",
     "test": "NODE_ENV=test jest --ci --verbose",
     "sls:deploy": "serverless deploy  --verbose",
-    "sls:package": "serverless package --stage test",
-    "sls:invoke": "serverless invoke local --function hello --stage test"
+    "sls:package": "serverless package --stage test"
   },
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^1.121.0",
     "@aws-cdk/aws-dynamodb": "^1.121.0",
     "@aws-cdk/aws-lambda": "^1.121.0",
     "@aws-cdk/aws-lambda-nodejs": "^1.121.0",
+    "@aws-cdk/aws-stepfunctions": "^1.121.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.121.0",
     "envalid": "^6.0.2"
   },
   "devDependencies": {

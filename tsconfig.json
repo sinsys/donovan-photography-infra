@@ -6,10 +6,11 @@
     "strict": true,
     "sourceMap": true,
     "target": "es2019",
-    "outDir": "lib",
+    "rootDir": "./",
+    "outDir": "./build",
     "inlineSources": true,
     "esModuleInterop": true,
-    "sourceRoot": "/",
+    "sourceRoot": "./",
     "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
