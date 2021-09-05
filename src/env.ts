@@ -8,7 +8,7 @@ export const reporter = ({ errors }: ReporterOptions): void => {
 }
 
 const env = cleanEnv(process.env, {
-  FOO: str()
+  TABLE_NAME: str()
 }, {
   strict: true,
   reporter
