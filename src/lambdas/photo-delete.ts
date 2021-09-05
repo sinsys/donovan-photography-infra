@@ -1,0 +1,25 @@
+import { Handler, Context } from 'aws-lambda'
+import { ApiErrorCodes, IPhotoDeleteRequest, ProcessError } from '@src/interfaces'
+import { isValidString, ApiError, makeApiResponse, Log } from '@src/utils'
+
+/**
+ * Deletes a single, high-quality photo from a project storage
+ * @param event - API Request
+ */
+export const deletePhoto: Handler = async (event: IPhotoDeleteRequest, _context: Context) => {
+  try {
+    Log(console.debug, '[PHOTO][DELETE][START]')
+    const photoId = event?.photoId
+    if (!isValidString(photoId)) {
+      ApiError(ApiErrorCodes.BR, 'Invalid input', event)
+    }
+
+    Log(console.debug, '[PHOTO][DELETE][SUCCESS]')
+    return makeApiResponse(201, `Successfully deleted photo ${photoId}`)
+  } catch (err) {
+    if (err instanceof ProcessError) {
+      throw err
+    }
+    ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
+  }
+}

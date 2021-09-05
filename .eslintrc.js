@@ -2,7 +2,9 @@ module.exports = {
   root: true,
   extends: 'standard-with-typescript',
   parserOptions: {
-    project: './tsconfig.json'
+    ecmaVersion: 2019,
+    project: './tsconfig.json',
+    sourceType: 'module'
   },
   overrides: [
     Object.assign(

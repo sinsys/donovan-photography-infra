@@ -1,3 +1,8 @@
-export interface Request {
-  photoId: string
-}
+export * from '@src/interfaces/error'
+export * from '@src/interfaces/photo-delete'
+export * from '@src/interfaces/photo-get'
+export * from '@src/interfaces/project-create'
+export * from '@src/interfaces/project-delete'
+export * from '@src/interfaces/project-get'
+export * from '@src/interfaces/project-update'
+export * from '@src/interfaces/api'
