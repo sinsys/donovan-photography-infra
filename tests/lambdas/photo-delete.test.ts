@@ -1,8 +1,8 @@
-import { deletePhoto } from '@src/lambdas/photo-delete'
+import { deletePhoto } from '../../src/lambdas/photo-delete'
 import { Context } from 'aws-lambda'
 import { Mock } from 'moq.ts'
 import { inspect } from 'util'
-import { mockDeletePhotoRequest, mockDeletePhotoResponse } from '@tests/lambdas/__fixtures'
+import { mockDeletePhotoRequest, mockDeletePhotoResponse } from './__fixtures'
 
 const mockContext = new Mock<Context>()
 

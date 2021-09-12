@@ -1,5 +1,5 @@
 
-import { ApiErrorCodes, ApiResponse, ResponseCodes, ProcessError } from '@src/interfaces'
+import { ApiErrorCodes, ApiResponse, ResponseCodes, ProcessError } from '../interfaces'
 import { inspect } from 'util'
 
 export const isValidString = (it: unknown): it is string => {
@@ -15,15 +15,16 @@ export const Log = (func: Function, message: string, ...args: any[]): void => {
   func(message, ...argStrings)
 }
 
-export const ApiError = (code: ApiErrorCodes, message: string, ...args: any[]): void => {
+export const ApiError = (code: ApiErrorCodes, message: string, ...args: any[]): ProcessError => {
   const errMsg = `[${code}]: ${message}`
   Log(console.error, errMsg, ...args)
-  throw new ProcessError(`[${code}]: ${message}`)
+  return new ProcessError(`[${code}]: ${message}`)
 }
 
-export const makeApiResponse = <T>(code: ResponseCodes, message: string, data?: T): ApiResponse<T> => {
+export const makeApiResponse = <T>(statusCode: ResponseCodes, message: string, data?: T): ApiResponse<T> => {
   return {
-    code,
+    statusCode,
+    headers: {},
     message,
     ...data != null && ({ data })
   }

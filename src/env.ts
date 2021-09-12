@@ -18,7 +18,10 @@ const env = cleanEnv(process.env, {
   REST_API_NAME: str(),
 
   // CONFIG
-  REGION_BASE: str()
+  REGION_BASE: str(),
+  DEPLOY_ENV: str({
+    choices: ['dev', 'test', 'production']
+  }),
 }, {
   strict: true,
   reporter

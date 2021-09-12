@@ -1,8 +1,8 @@
-import { getPhoto } from '@src/lambdas/photo-get'
+import { getPhoto } from '../../src/lambdas/photo-get'
 import { Context } from 'aws-lambda'
 import { Mock } from 'moq.ts'
 import { inspect } from 'util'
-import { mockGetPhotoRequest, mockGetPhotoResponse } from '@tests/lambdas/__fixtures'
+import { mockGetPhotoRequest, mockGetPhotoResponse } from './__fixtures'
 
 const mockContext = new Mock<Context>()
 

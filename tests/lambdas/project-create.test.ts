@@ -1,8 +1,8 @@
-import { createProject } from '@src/lambdas/project-create'
+import { createProject } from '../../src/lambdas/project-create'
 import { Context } from 'aws-lambda'
 import { Mock } from 'moq.ts'
 import { inspect } from 'util'
-import { mockCreateProjectRequest, mockCreateProjectResponse } from '@tests/lambdas/__fixtures'
+import { mockCreateProjectRequest, mockCreateProjectResponse } from './__fixtures'
 
 const mockContext = new Mock<Context>()
 

@@ -1,6 +1,6 @@
 import { Handler, Context } from 'aws-lambda'
-import { ApiErrorCodes, IProjectCreateRequest, ProcessError } from '@src/interfaces'
-import { isValidString, ApiError, makeApiResponse, Log } from '@src/utils'
+import { ApiErrorCodes, IProjectCreateRequest, ProcessError } from '../interfaces'
+import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 
 /**
  * Creates a new project from a collection of photos and metadata
@@ -11,7 +11,7 @@ export const createProject: Handler = async (event: IProjectCreateRequest, _cont
     Log(console.debug, '[PROJECT][CREATE][START]')
     const name = event?.name
     if (!isValidString(name)) {
-      ApiError(ApiErrorCodes.BR, 'Invalid input', event)
+      throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
 
     Log(console.debug, '[PROJECT][CREATE][SUCCESS]')
@@ -22,6 +22,6 @@ export const createProject: Handler = async (event: IProjectCreateRequest, _cont
     if (err instanceof ProcessError) {
       throw err
     }
-    ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
+    throw ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
   }
 }

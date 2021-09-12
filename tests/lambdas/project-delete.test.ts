@@ -1,8 +1,8 @@
-import { deleteProject } from '@src/lambdas/project-delete'
+import { deleteProject } from '../../src/lambdas/project-delete'
 import { Context } from 'aws-lambda'
 import { Mock } from 'moq.ts'
 import { inspect } from 'util'
-import { mockDeleteProjectRequest, mockDeleteProjectResponse } from '@tests/lambdas/__fixtures'
+import { mockDeleteProjectRequest, mockDeleteProjectResponse } from './__fixtures'
 
 const mockContext = new Mock<Context>()
 

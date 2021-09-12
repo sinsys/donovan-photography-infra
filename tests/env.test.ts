@@ -1,4 +1,4 @@
-import { reporter } from '@src/env'
+import { reporter } from '../src/env'
 
 describe('reportError', () => {
   it('returns undefined when no errors are thrown', async () => {

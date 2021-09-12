@@ -7,10 +7,11 @@ require('dotenv').config({
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/**/*.{js,ts}',
+    './src/**/*.{js,ts}',
     '!src/interfaces/**',
     '!**/node_modules/**',
-    '!src/handler.ts'
+    '!src/handler.ts',
+    '!build/**/*'
   ],
   coverageReporters: [
     'text',

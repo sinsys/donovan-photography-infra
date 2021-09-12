@@ -1,4 +1,4 @@
-import { Log } from '@src/utils'
+import { Log } from '../src/utils'
 import { inspect } from 'util'
 
 describe('utils', () => {

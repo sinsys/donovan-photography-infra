@@ -1,6 +1,6 @@
 import { Handler, Context } from 'aws-lambda'
-import { ApiErrorCodes, IProjectGetRequest, ProcessError } from '@src/interfaces'
-import { isValidString, ApiError, makeApiResponse, Log } from '@src/utils'
+import { ApiErrorCodes, IProjectGetRequest, ProcessError } from '../interfaces'
+import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 
 /**
  * Gets a project details
@@ -11,7 +11,7 @@ export const getProject: Handler = async (event: IProjectGetRequest, _context: C
     Log(console.debug, '[PROJECT][CREATE][START]')
     const projectId = event?.id
     if (!isValidString(projectId)) {
-      ApiError(ApiErrorCodes.BR, 'Invalid input', event)
+      throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
 
     Log(console.debug, '[PROJECT][CREATE][SUCCESS]')
@@ -26,6 +26,6 @@ export const getProject: Handler = async (event: IProjectGetRequest, _context: C
     if (err instanceof ProcessError) {
       throw err
     }
-    ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
+    throw ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
   }
 }

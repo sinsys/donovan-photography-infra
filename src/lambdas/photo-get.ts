@@ -1,6 +1,6 @@
 import { Handler, Context } from 'aws-lambda'
-import { ApiErrorCodes, IPhotoGetRequest, IPhotoGetResponse, ProcessError } from '@src/interfaces'
-import { isValidString, ApiError, makeApiResponse, Log } from '@src/utils'
+import { ApiErrorCodes, IPhotoGetRequest, IPhotoGetResponse, ProcessError } from '../interfaces'
+import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 
 /**
  * Retrieves a single, high-quality photo from storage
@@ -12,7 +12,7 @@ export const getPhoto: Handler = async (event: IPhotoGetRequest, _context: Conte
     Log(console.debug, '[PHOTO][GET][START]')
     const photoId = event?.photoId
     if (!isValidString(photoId)) {
-      ApiError(ApiErrorCodes.BR, 'Invalid input', event)
+      throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
 
     Log(console.debug, '[PHOTO][GET][SUCCESS]')
@@ -24,6 +24,6 @@ export const getPhoto: Handler = async (event: IPhotoGetRequest, _context: Conte
     if (err instanceof ProcessError) {
       throw err
     }
-    ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
+    throw ApiError(ApiErrorCodes.ISE, 'There was an unknown error', err)
   }
 }
