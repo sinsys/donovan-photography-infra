@@ -4,8 +4,9 @@ export const mockDeletePhotoRequest = {
 }
 
 export const mockDeletePhotoResponse = {
-  code: 201,
-  message: 'Successfully deleted photo mock-photo-id'
+  statusCode: 201,
+  message: 'Successfully deleted photo mock-photo-id',
+  headers: {}
 }
 
 export const mockGetPhotoRequest = {
@@ -14,11 +15,12 @@ export const mockGetPhotoRequest = {
 }
 
 export const mockGetPhotoResponse = {
-  code: 200,
+  statusCode: 200,
   message: 'Successfully received photo mock-photo-id',
-  data: {
+  body: {
     location: 'tbd'
-  }
+  },
+  headers: {}
 }
 
 export const mockCreateProjectRequest = {
@@ -28,8 +30,9 @@ export const mockCreateProjectRequest = {
 }
 
 export const mockCreateProjectResponse = {
-  code: 201,
-  message: 'Successfully created project mock-project-name'
+  statusCode: 201,
+  message: 'Successfully created project mock-project-name',
+  headers: {}
 }
 
 export const mockDeleteProjectRequest = {
@@ -37,8 +40,9 @@ export const mockDeleteProjectRequest = {
 }
 
 export const mockDeleteProjectResponse = {
-  code: 201,
-  message: 'Successfully deleted project mock-project-id'
+  statusCode: 201,
+  message: 'Successfully deleted project mock-project-id',
+  headers: {}
 }
 
 export const mockGetProjectRequest = {
@@ -46,12 +50,13 @@ export const mockGetProjectRequest = {
 }
 
 export const mockGetProjectResponse = {
-  code: 201,
+  statusCode: 201,
   message: 'Successfully retrieved project details for mock-project-id',
-  data: {
+  body: {
     projectId: 'mock-project-id',
     files: []
-  }
+  },
+  headers: {}
 }
 
 export const mockUpdateProjectRequest = {
@@ -59,6 +64,7 @@ export const mockUpdateProjectRequest = {
 }
 
 export const mockUpdateProjectResponse = {
-  code: 201,
-  message: 'Successfully updated project details for mock-project-id'
+  statusCode: 201,
+  message: 'Successfully updated project details for mock-project-id',
+  headers: {}
 }

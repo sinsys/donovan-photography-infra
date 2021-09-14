@@ -5,6 +5,7 @@
     "lib": [
       "es2018"
     ],
+    "sourceMap": true,
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
@@ -15,14 +16,18 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": false,
-    "inlineSourceMap": true,
+    "inlineSourceMap": false,
     "inlineSources": true,
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "typeRoots": [
-      "./node_modules/@types"
-    ]
+      "node_modules/@types"
+    ],
+    "outDir": "dist/"
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "node_modules",
     "cdk.out"

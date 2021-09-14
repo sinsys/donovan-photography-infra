@@ -11,7 +11,6 @@ export const buildApp = async (): Promise<void> => {
     console.debug('[STACK][CREATE][START]')
     const app = new App()
     const photoStack = new PhotoStack(app, `${env.APP_NAME}-${env.DEPLOY_ENV}`)
-    app.synth()
     console.debug('[STACK][CREATE][SUCCESS]', photoStack)
   } catch (err) {
     if (err instanceof ProcessError) {

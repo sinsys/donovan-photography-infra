@@ -14,6 +14,7 @@ const env = cleanEnv(process.env, {
   // RESOURCES
   PHOTOS_TABLE_NAME: str(),
   USERS_TABLE_NAME: str(),
+  PROJECTS_TABLE_NAME: str(),
   COGNITO_POOL_NAME: str(),
   REST_API_NAME: str(),
 

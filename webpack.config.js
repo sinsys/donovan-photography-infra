@@ -1,55 +1,31 @@
 const path = require('path')
-const slsw = require('serverless-webpack')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-
-const isProd = slsw.lib.options.stage === 'prod'
+const slsw = require('serverless-webpack');
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  context: __dirname,
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
-  devtool: isProd ? false : 'source-map',
-  resolve: {
-    extensions: ['.js', '.mjs', '.json', '.ts'],
-    symlinks: false,
-    cacheWithContext: false,
-    alias: {
-      '@src': path.resolve(__dirname, 'src/'),
-      '@tests': path.resolve(__dirname, 'tests/'),
-      '@bin': path.resolve(__dirname, 'bin/')
-    }
-  },
-  output: {
-    libraryTarget: 'commonjs',
-    path: path.join(__dirname, '.webpack'),
-    filename: '[name].js'
-  },
-  target: 'node',
   module: {
     rules: [
       {
-        test: /\.(tsx?)$/,
-        loader: 'ts-loader',
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: [
-          [
-            path.resolve(__dirname, 'node_modules'),
-            path.resolve(__dirname, '.serverless'),
-            path.resolve(__dirname, '.webpack')
-          ]
-        ],
-        options: {
-          transpileOnly: true,
-          experimentalWatchApi: true
-        }
-      }
-    ]
+          '/node_modules/',
+          '/bin',
+          '/cdk.out',
+          '/tests'
+        ]
+      },
+    ],
   },
-  plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      eslint: {
-        files: './src/**/*.{ts,tsx,js,jsx}',
-        options: { cache: true }
-      }
-    })
-  ]
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  target: 'node', // in order to ignore built-in modules like path, fs, etc.
+  externals: [nodeExternals()] // in order to ignore all modules in node_modules folder
 }

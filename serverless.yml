@@ -1,0 +1,15 @@
+# serverless.yml
+
+custom:
+  webpack:
+    includeModules: false
+
+package:
+    individually: true
+
+plugins:
+  - serverless-webpack
+
+functions:
+  getProject:
+    getProject: src/lambdas/get-project.getProject

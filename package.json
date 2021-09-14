@@ -2,11 +2,13 @@
   "name": "donovan-infra",
   "version": "1.0.0",
   "description": "Infrastructure for Donovan Photography",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "webpack",
     "watch": "tsc -w",
     "cdk": "cdk",
+    "synth": "cdk synth",
+    "deploy": "webpack && cdk deploy",
     "validate:ci": "tsc --noEmit && eslint .",
     "test": "NODE_ENV=test jest --ci --verbose",
     "sls:deploy": "serverless deploy --verbose",
@@ -16,7 +18,6 @@
     "@aws-cdk/aws-apigateway": "^1.121.0",
     "@aws-cdk/aws-dynamodb": "^1.121.0",
     "@aws-cdk/aws-lambda": "^1.121.0",
-    "@aws-cdk/aws-lambda-nodejs": "^1.121.0",
     "@aws-cdk/aws-stepfunctions": "^1.121.0",
     "@aws-cdk/aws-stepfunctions-tasks": "^1.121.0",
     "envalid": "^6.0.2",
@@ -24,6 +25,7 @@
     "tscpaths": "0.0.9"
   },
   "devDependencies": {
+    "@aws-cdk/assert": "^1.122.0",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
@@ -51,10 +53,12 @@
     "prettier": "^2.3.2",
     "serverless": "^2.39.0",
     "serverless-dotenv-plugin": "^3.9.0",
-    "serverless-webpack": "^5.4.2",
-    "ts-loader": "^5.3.3",
-    "typescript": "^4.1.3",
-    "webpack": "^4.46.0"
+    "serverless-webpack": "^5.5.4",
+    "ts-loader": "^5.4.5",
+    "typescript": "^4.4.3",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "author": {
     "name": "Nicholas Hazel <nicholas.hazel@gmail.com>"

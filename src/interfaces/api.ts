@@ -3,7 +3,7 @@ export interface ApiResponse<T> {
   statusCode: ResponseCodes
   headers: {
     [key: string]: string
-  }
+  },
   message: string
   body?: T
 }

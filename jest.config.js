@@ -8,9 +8,9 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     './src/**/*.{js,ts}',
+    '!src/**/index.ts',
     '!src/interfaces/**',
     '!**/node_modules/**',
-    '!src/handler.ts',
     '!build/**/*'
   ],
   coverageReporters: [

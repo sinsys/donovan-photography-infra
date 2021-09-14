@@ -1,19 +1,38 @@
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
 import { RemovalPolicy } from '@aws-cdk/core'
 import { PhotoStack } from '../infra-stack'
+import env from '../env'
 
-export const createProjectsDatabase = (stack: PhotoStack, ddbName: string): void => {
-  new Table(stack, ddbName, {
+/**
+ * Creates Table in Dynamo
+ * @param stack - Stack to add database table to
+ * @param ddbName - Name of database table
+ * @returns - Created Table class
+ */
+export const createProjectsTable = (stack: PhotoStack, ddbName: string, isProd: boolean): Table => {
+  return new Table(stack, ddbName, {
     partitionKey: {
-      name: 'projectId',
+      name: 'PK',
+      type: AttributeType.STRING
+    },
+    sortKey: {
+      name: 'SK',
       type: AttributeType.STRING
     },
     tableName: ddbName,
-    /**
-     *  The default removal policy is RETAIN, which means that cdk destroy will not attempt to delete
-     * the new table, and it will remain in your account until manually deleted. By setting the policy to
-     * DESTROY, cdk destroy will delete the table (even if it has data in it)
-     */
-    removalPolicy: RemovalPolicy.DESTROY // NOT recommended for production code
+    removalPolicy: setRemovalPolicy(isProd)
   })
+}
+
+/**
+ * Sets removal policy for database table
+ * @param isProd - Sets removal policy to retain if true
+ * @returns { RemovalPolicy }
+ */
+export const setRemovalPolicy = (
+  isProd: boolean = env.DEPLOY_ENV === 'production'
+): RemovalPolicy => {
+  return isProd === true
+    ? RemovalPolicy.RETAIN
+    : RemovalPolicy.DESTROY
 }
