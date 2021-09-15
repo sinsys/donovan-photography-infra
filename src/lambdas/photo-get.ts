@@ -18,11 +18,13 @@ export const getPhoto: Handler = async (event: IPhotoGetRequest, _context: Conte
     if (!isValidString(photoId) || !isValidString(projectId)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
-
-    Log(console.debug, '[PHOTO][GET][SUCCESS]')
+    Log(console.debug, '[PHOTO][GET][SUCCESS]', { photoId, projectId })
     return makeApiResponse<IPhotoGetResponse>(
-      200, `Successfully received photo ${photoId}`,
-      { location: 'tbd' }
+      200, {
+        photoId,
+        projectId,
+        location: 's3://someplace'
+      }
     )
   } catch (err) {
     if (err instanceof ProcessError) {

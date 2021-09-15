@@ -4,13 +4,13 @@ import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
 export type ResponseCodes = 200 | 201 | 203 | 400 | 404 | 500
 
 /** Api Response from API Gateway */
-export interface ApiResponse<T> {
+export interface ApiResponse {
   statusCode: ResponseCodes
   headers: {
     [key: string]: string
   },
-  message: string
-  body?: T
+  isBase64Encoded: boolean
+  body: string
 }
 
 /** Api Request for API Gateway */

@@ -8,8 +8,9 @@ export const mockDeletePhotoRequest = {
 
 export const mockDeletePhotoResponse = {
   statusCode: 201,
-  message: 'Successfully deleted photo mock-photo-id',
-  headers: {}
+  body: JSON.stringify('Successfully deleted photo mock-photo-id'),
+  headers: {},
+  isBase64Encoded: false
 }
 
 export const mockGetPhotoRequest = {
@@ -22,11 +23,13 @@ export const mockGetPhotoRequest = {
 
 export const mockGetPhotoResponse = {
   statusCode: 200,
-  message: 'Successfully received photo mock-photo-id',
-  body: {
-    location: 'tbd'
-  },
-  headers: {}
+  body: JSON.stringify({
+    photoId: 'mock-photo-id',
+    projectId: 'mock-project-id',
+    location: 's3://someplace'
+  }),
+  headers: {},
+  isBase64Encoded: false
 }
 
 export const mockCreateProjectRequest = {
@@ -44,8 +47,9 @@ export const mockCreateProjectRequest = {
 
 export const mockCreateProjectResponse = {
   statusCode: 201,
-  message: 'Successfully created project mock-project-name',
-  headers: {}
+  body: JSON.stringify('Successfully created project mock-project-name'),
+  headers: {},
+  isBase64Encoded: false
 }
 
 export const mockDeleteProjectRequest = {
@@ -57,8 +61,9 @@ export const mockDeleteProjectRequest = {
 
 export const mockDeleteProjectResponse = {
   statusCode: 201,
-  message: 'Successfully deleted project mock-project-id',
-  headers: {}
+  body: JSON.stringify('Successfully deleted project mock-project-id'),
+  headers: {},
+  isBase64Encoded: false
 }
 
 export const mockGetProjectRequest = {
@@ -70,12 +75,12 @@ export const mockGetProjectRequest = {
 
 export const mockGetProjectResponse = {
   statusCode: 201,
-  message: 'Successfully retrieved project details for mock-project-id',
-  body: {
+  body: JSON.stringify({
     projectId: 'mock-project-id',
     files: []
-  },
-  headers: {}
+  }),
+  headers: {},
+  isBase64Encoded: false
 }
 
 export const mockUpdateProjectRequest = {
@@ -87,6 +92,7 @@ export const mockUpdateProjectRequest = {
 
 export const mockUpdateProjectResponse = {
   statusCode: 201,
-  message: 'Successfully updated project details for mock-project-id',
-  headers: {}
+  body: JSON.stringify('Successfully updated project details for mock-project-id'),
+  headers: {},
+  isBase64Encoded: false
 }
