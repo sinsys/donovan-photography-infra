@@ -4,11 +4,21 @@ import { PhotoStack } from '../infra-stack'
 import { LambdaConfig } from '../interfaces'
 import env from '../env'
 
+/** Common Node Lambda properties */
 const nodeJsFunctionProps = {
   bundling: {},
   runtime: Runtime.NODEJS_14_X
 }
 
+/**
+ * Creates bundled Node Lambda functions in the provided Stack
+ * @param stack - Stack to add Lambda function to
+ * @param name - Name of Lambda
+ * @param entry - Entry point of Lambda code (.ts)
+ * @param handler - Function name of Lambda code
+ * @param isProd - Conditional to apply stricter deployment rules
+ * @returns 
+ */
 export const createNodeLambdaFunction = (
   stack: PhotoStack,
   name: string,
@@ -23,6 +33,9 @@ export const createNodeLambdaFunction = (
   })
 }
 
+/**
+ * Config map when creating Lambdas
+ */
 export const lambdaMap: {
   [key: string]: LambdaConfig
 } = {

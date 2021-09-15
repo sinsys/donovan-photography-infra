@@ -1,5 +1,6 @@
 import { cleanEnv, str, ReporterOptions } from 'envalid'
 
+/** Basic extention of built in error reporter - more human readable logs */
 export const reporter = ({ errors }: ReporterOptions): void => {
   if (Object.keys(errors).length > 0) {
     console.error(errors)
@@ -7,6 +8,9 @@ export const reporter = ({ errors }: ReporterOptions): void => {
   }
 }
 
+/**
+ * This is a sanitized, immutable version of our runtime environment
+ */
 const env = cleanEnv(process.env, {
   // BASE
   APP_NAME: str(),

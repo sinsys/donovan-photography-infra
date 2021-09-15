@@ -1,13 +1,16 @@
 import { App, Stack, StackProps } from '@aws-cdk/core'
-import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
-// Exporting
-import { LambdaIntegration, IResource, MockIntegration, PassthroughBehavior } from '@aws-cdk/aws-apigateway'
 import { createProjectsTable } from './databases'
 import { createProjectsApi, lambdaMap, createNodeLambdaFunction } from './api-gateway'
-import env from './env'
 import { LambdaConfig, LambdaFuncs } from './interfaces'
-import { addCorsOptions } from './api-gateway'
+import env from './env'
 
+/**
+ * Creates a Cloud Formation Stack in AWS
+ * It contains the following Resources:
+ * - Dynamo DB Table
+ * - 6x Lambda TypeScript Functions
+ * - API Gateway (2 resources, 6 methods)
+ */
 export class PhotoStack extends Stack {
   constructor(scope: App, id: string, props?: StackProps) {
     super(scope, id, props)
@@ -28,9 +31,10 @@ export class PhotoStack extends Stack {
         this,
         config.name,
         config.entry,
-        config.handler
+        config.handler,
+        env.DEPLOY_ENV === 'production'
       )
-      // Grant access to table
+      // Grant access to database
       projectDdb.grantReadWriteData(acc[key])
       return acc
     }, {})
@@ -40,23 +44,8 @@ export class PhotoStack extends Stack {
       this,
       `${env.REST_API_ID}-${env.DEPLOY_ENV}`,
       `${env.REST_API_NAME}-${env.DEPLOY_ENV}`,
+      lambdaFunctions,
       env.DEPLOY_ENV === 'production'
     )
-
-    // Routes
-    const projects = projectApi.root.addResource('projects')
-    const singleProject = projects.addResource('{id}')
-    const singlePhoto = singleProject.addResource('{photoId}')
-    addCorsOptions(singleProject)
-    addCorsOptions(singlePhoto)
-
-    // Integrate the Lambda functions with the API Gateway resource
-    singleProject.addMethod('GET', new LambdaIntegration(lambdaFunctions.getProject))
-    singleProject.addMethod('DELETE', new LambdaIntegration(lambdaFunctions.deleteProject))
-    singleProject.addMethod('POST', new LambdaIntegration(lambdaFunctions.createProject))
-    singleProject.addMethod('PUT', new LambdaIntegration(lambdaFunctions.updateProject))
-
-    singlePhoto.addMethod('GET', new LambdaIntegration(lambdaFunctions.getPhoto))
-    singlePhoto.addMethod('PUT', new LambdaIntegration(lambdaFunctions.deletePhoto))
   }
 }

@@ -3,7 +3,7 @@ import { ApiErrorCodes, IPhotoDeleteRequest, ProcessError } from '../interfaces'
 import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 
 /**
- * Deletes a single, high-quality photo from a project storage
+ * Deletes a single photo from a project storage
  * @param event - API Request
  */
 export const deletePhoto: Handler = async (event: IPhotoDeleteRequest, _context: Context) => {
