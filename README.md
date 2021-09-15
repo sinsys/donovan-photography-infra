@@ -2,8 +2,10 @@
   - [Getting Started](#getting-started)
   - [Testing](#testing)
   - [Architecture](#architecture)
-    - [Databases](#databases)
+    - [Database](#database)
       - [Projects](#projects)
+    - [Storage](#storage)
+    - [Users](#users)
     - [Functions](#functions)
       - [Lambdas](#lambdas)
         - [Get Photo](#get-photo)
@@ -14,8 +16,8 @@
         - [Update Project](#update-project)
     - [API Gateway](#api-gateway)
       - [Projects API](#projects-api)
-  - [Contributing](#contributing)
-  - [Made With](#made-with)
+  - [Contribution](#contribution)
+  - [Attributions](#attributions)
 
 # donovan-infra
 This repository handles all of the back-end deployment necessary for Donovan Photography.
@@ -43,10 +45,20 @@ npm t
 ## Architecture
 Here is a brief run down of the architecture this repository will deploy
 
-### Databases
+### Database
+[Dynamo DB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) will be used as a storage mechanism for relating S3 contents to Cognito user pools <tbd>
+
 #### Projects
 This database serves as a symbolic link between user accounts and S3 storage locations for photos and media
 > Schema: TBD
+
+### Storage
+Amazon S3 will serve as a mechanism to store photos uploaded for clients <tbd>
+> [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+
+### Users
+Cognito will serve as an authentication protocol to grant access to purchased content <tbd>
+> [Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 
 ### Functions
 #### Lambdas
@@ -76,8 +88,10 @@ This API has 6 resources available:
 ```
 > You can view mapping at `src/api-gateway/lambdas.ts`
 
-## Contributing
-Contact [@sinsys](https://github.com/sinsys)
+## Contribution
 
-## Made With
- - will fill out when finalized
+Want to use this? Like the style? Want to work together? Contact below.
+
+## Attributions
+
+Author - [Nicholas Hazel](https://github.com/sinsys)
