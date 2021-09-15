@@ -3,7 +3,7 @@ import { ApiErrorCodes, IPhotoGetRequest, IPhotoGetResponse, ProcessError } from
 import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 
 /**
- * Retrieves a single, high-quality photo from storage
+ * Retrieves a single photo from storage
  * @param event - API Request
  * @returns - Resource ID for image in storage
  */

@@ -1,8 +1,5 @@
 import { ApiRequest } from '.'
-/**
- * GET /projects/:id/:photoId Request
- * Request to get photo links
- */
+/** Request to get photo links */
 export interface IPhotoGetRequest extends ApiRequest<null> {
   pathParameters: {
     id: string
@@ -10,10 +7,7 @@ export interface IPhotoGetRequest extends ApiRequest<null> {
   }
 }
 
-/**
- * GET /projects/:id/:photoId Response
- * Location granted to access pictures
- */
+/** Response for photo links */
 export interface IPhotoGetResponse {
   location: string
 }

@@ -1,4 +1,9 @@
+import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
+
+/** Status Codes */
 export type ResponseCodes = 200 | 201 | 203 | 400 | 404 | 500
+
+/** Api Response from API Gateway */
 export interface ApiResponse<T> {
   statusCode: ResponseCodes
   headers: {
@@ -7,6 +12,8 @@ export interface ApiResponse<T> {
   message: string
   body?: T
 }
+
+/** Api Request for API Gateway */
 export interface ApiRequest<T> {
   headers: any
   httpMethod: string
@@ -16,8 +23,23 @@ export interface ApiRequest<T> {
   }
   message: string
 }
+
+/** Project details */
 export interface ProjectDetails {
   name: string
   date: string
   files: string[]
+}
+
+/** Configuration for Lambda Functions */
+export interface LambdaConfig {
+  method: string
+  name: string
+  entry: string
+  handler: string
+}
+
+/** Custom object for Node Lambda Functions */
+export interface LambdaFuncs {
+  [key: string]: NodejsFunction
 }

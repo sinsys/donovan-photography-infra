@@ -7,9 +7,14 @@ import env from '../env'
  * Creates Table in Dynamo
  * @param stack - Stack to add database table to
  * @param ddbName - Name of database table
- * @returns - Created Table class
+ * @param isProd - Conditional to apply stricter deployment rules
+ * @returns - Table
  */
-export const createProjectsTable = (stack: PhotoStack, ddbName: string, isProd: boolean): Table => {
+export const createProjectsTable = (
+  stack: PhotoStack,
+  ddbName: string,
+  isProd: boolean = env.DEPLOY_ENV === 'production'
+): Table => {
   return new Table(stack, ddbName, {
     partitionKey: {
       name: 'PK',
