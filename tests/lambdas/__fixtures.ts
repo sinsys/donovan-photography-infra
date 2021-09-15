@@ -1,6 +1,9 @@
 export const mockDeletePhotoRequest = {
-  id: 'mock-project-id',
-  photoId: 'mock-photo-id'
+  httpMethod: 'DELETE',
+  pathParameters: {
+    id: 'mock-project-id',
+    photoId: 'mock-photo-id'
+  }
 }
 
 export const mockDeletePhotoResponse = {
@@ -10,8 +13,11 @@ export const mockDeletePhotoResponse = {
 }
 
 export const mockGetPhotoRequest = {
-  id: 'mock-project-id',
-  photoId: 'mock-photo-id'
+  httpMethod: 'GET',
+  pathParameters: {
+    id: 'mock-project-id',
+    photoId: 'mock-photo-id'
+  }
 }
 
 export const mockGetPhotoResponse = {
@@ -24,9 +30,16 @@ export const mockGetPhotoResponse = {
 }
 
 export const mockCreateProjectRequest = {
-  name: 'mock-project-name',
-  date: 'mock-date',
-  files: ['mock-file-1', 'mock-file-2']
+  httpMethod: 'POST',
+  pathParameters: {
+    id: 'mock-project-id',
+    photoId: 'mock-photo-id'
+  },
+  body: {
+    name: 'mock-project-name',
+    date: 'mock-date',
+    files: ['mock-file-1', 'mock-file-2']
+  }
 }
 
 export const mockCreateProjectResponse = {
@@ -36,7 +49,10 @@ export const mockCreateProjectResponse = {
 }
 
 export const mockDeleteProjectRequest = {
-  id: 'mock-project-id'
+  httpMethod: 'DELETE',
+  pathParameters: {
+    id: 'mock-project-id'
+  }
 }
 
 export const mockDeleteProjectResponse = {
@@ -46,7 +62,10 @@ export const mockDeleteProjectResponse = {
 }
 
 export const mockGetProjectRequest = {
-  id: 'mock-project-id'
+  httpMethod: 'GET',
+  pathParameters: {
+    id: 'mock-project-id'
+  }
 }
 
 export const mockGetProjectResponse = {
@@ -60,7 +79,10 @@ export const mockGetProjectResponse = {
 }
 
 export const mockUpdateProjectRequest = {
-  id: 'mock-project-id'
+  httpMethod: 'PUT',
+  pathParameters: {
+    id: 'mock-project-id'
+  }
 }
 
 export const mockUpdateProjectResponse = {

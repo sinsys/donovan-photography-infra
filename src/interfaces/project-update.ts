@@ -1,9 +1,12 @@
+import { ApiRequest, ProjectDetails } from '.'
 /**
  * PUT /projects/:id Request
  * Request to get photo links
  */
-export interface IProjectUpdateRequest {
-  id: string
+export interface IProjectUpdateRequest extends ApiRequest<ProjectDetails> {
+  pathParameters: {
+    id: string
+  }
 }
 
 /**

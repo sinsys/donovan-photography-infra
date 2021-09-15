@@ -1,10 +1,13 @@
+import { ApiRequest } from '.'
 /**
  * GET /projects/:id/:photoId Request
  * Request to get photo links
  */
-export interface IPhotoGetRequest {
-  id: string
-  photoId: string
+export interface IPhotoGetRequest extends ApiRequest<null> {
+  pathParameters: {
+    id: string
+    photoId: string
+  }
 }
 
 /**

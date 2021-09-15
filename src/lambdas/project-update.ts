@@ -9,7 +9,7 @@ import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 export const updateProject: Handler = async (event: IProjectUpdateRequest, _context: Context) => {
   try {
     Log(console.debug, '[PROJECT][UPDATE][START]')
-    const projectId = event?.id
+    const projectId = event?.pathParameters?.id
     if (!isValidString(projectId)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }

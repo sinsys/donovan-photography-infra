@@ -1,9 +1,13 @@
+import { ApiRequest } from '.'
+
 /**
  * GET /projects/:id Request
  * Request to get project details
  */
-export interface IProjectGetRequest {
-  id: string
+export interface IProjectGetRequest extends ApiRequest<null> {
+  pathParameters: {
+    id: string
+  }
 }
 
 /**

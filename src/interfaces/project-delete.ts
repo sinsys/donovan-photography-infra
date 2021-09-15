@@ -1,9 +1,12 @@
+import { ApiRequest } from '.'
 /**
  * DELETE /projects/:id Request
  * Request to get photo links
  */
-export interface IProjectDeleteRequest {
-  id: string
+export interface IProjectDeleteRequest extends ApiRequest<null> {
+  pathParameters: {
+    id: string
+  }
 }
 
 /**

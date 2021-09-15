@@ -9,7 +9,7 @@ import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 export const deleteProject: Handler = async (event: IProjectDeleteRequest, _context: Context) => {
   try {
     Log(console.debug, '[PROJECT][DELETE][START]')
-    const projectId = event?.id
+    const projectId = event?.pathParameters?.id
     if (!isValidString(projectId)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }

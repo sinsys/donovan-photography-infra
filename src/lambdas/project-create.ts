@@ -9,14 +9,14 @@ import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 export const createProject: Handler = async (event: IProjectCreateRequest, _context: Context) => {
   try {
     Log(console.debug, '[PROJECT][CREATE][START]')
-    const name = event?.name
-    if (!isValidString(name)) {
+    const body = event?.body
+    if (!isValidString(body?.name)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
 
     Log(console.debug, '[PROJECT][CREATE][SUCCESS]')
     return makeApiResponse(
-      201, `Successfully created project ${name}`
+      201, `Successfully created project ${body?.name}`
     )
   } catch (err) {
     if (err instanceof ProcessError) {

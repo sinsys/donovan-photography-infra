@@ -9,8 +9,12 @@ import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 export const deletePhoto: Handler = async (event: IPhotoDeleteRequest, _context: Context) => {
   try {
     Log(console.debug, '[PHOTO][DELETE][START]')
-    const photoId = event?.photoId
-    if (!isValidString(photoId)) {
+    const {
+      photoId,
+      id: projectId
+    } = event?.pathParameters ?? {}
+
+    if (!isValidString(photoId) || !isValidString(projectId)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
 

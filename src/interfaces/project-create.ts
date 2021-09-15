@@ -1,12 +1,10 @@
+import { ApiRequest, ProjectDetails } from '.'
+
 /**
  * POST /project Request
  * Request to get photo links
  */
-export interface IProjectCreateRequest {
-  name: string
-  date: string
-  files: string[]
-}
+export interface IProjectCreateRequest extends ApiRequest<ProjectDetails> {}
 
 /**
  * POST /project Response
@@ -16,3 +14,4 @@ export interface IProjectCreateResponse {
   code: number
   message: string
 }
+
