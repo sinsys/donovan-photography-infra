@@ -17,6 +17,7 @@ const env = cleanEnv(process.env, {
   PROJECTS_TABLE_NAME: str(),
   COGNITO_POOL_NAME: str(),
   REST_API_NAME: str(),
+  REST_API_ID: str(),
 
   // CONFIG
   REGION_BASE: str(),

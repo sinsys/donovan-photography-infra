@@ -1,5 +1,5 @@
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert'
-import { App, RemovalPolicy } from '@aws-cdk/core'
+import { App } from '@aws-cdk/core'
 import { PhotoStack } from '../src/infra-stack'
 import env from '../src/env'
 
