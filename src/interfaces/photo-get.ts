@@ -9,5 +9,7 @@ export interface IPhotoGetRequest extends ApiRequest<null> {
 
 /** Response for photo links */
 export interface IPhotoGetResponse {
+  projectId: string
+  photoId: string
   location: string
 }

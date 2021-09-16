@@ -1,6 +1,7 @@
 import { Handler, Context } from 'aws-lambda'
 import { ApiErrorCodes, IProjectGetRequest, ProcessError } from '../interfaces'
 import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
+import { inspect } from 'util'
 
 /**
  * Gets a project details
@@ -13,11 +14,9 @@ export const getProject: Handler = async (event: IProjectGetRequest, _context: C
     if (!isValidString(projectId)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
-
     Log(console.debug, '[PROJECT][CREATE][SUCCESS]')
     return makeApiResponse(
-      201, `Successfully retrieved project details for ${projectId}`,
-      {
+      201, {
         projectId,
         files: []
       }

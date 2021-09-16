@@ -28,12 +28,19 @@ This repository handles all of the back-end deployment necessary for Donovan Pho
 npm ci
 ```
 
-2. Create initial bucket for resources to live:
-> This command only needs to be run once for each **AWS account OR region**.  
-> It will create the S3 bucket to store all resources used for CDK.
+2. Create initial bucket for resources to live:  
+This command only needs to be run once for each **AWS account OR region**.  
+It will create the S3 bucket to store all resources used for CDK.  
 ```bash
 cdk bootstrap
 ```
+
+3. Setup environment variables  
+A sample environment file has been provided for tests. These values will need to be populated when in a runtime. One option is to create a local `.env` file to populate the variables.  
+During CI/CD deployment, these variables should be configured on your build agent.  
+> -***DO NOT COMMIT YOUR SECRETS***-
+>   
+> **Disclaimer**: Execution will fail immediately if any environment variables are missing or are the incorrect type.
 
 ## Testing
 Testing is done with [Jest](https://jestjs.io/docs/getting-started) and the [AWS CDK Assertion Library](https://www.npmjs.com/package/@aws-cdk/assert).

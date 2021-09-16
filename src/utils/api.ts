@@ -18,14 +18,14 @@ export const ApiError = (code: ApiErrorCodes, message: string, ...args: any[]): 
  * Custom API response builder
  * @param statusCode - Status code to send
  * @param message - Message to send
- * @param body - Optional body to send as JSON
+ * @param body - Body to send as JSON
  * @returns - Custom API Response
  */
-export const makeApiResponse = <T>(statusCode: ResponseCodes, message: string, body?: T): ApiResponse<T> => {
+export const makeApiResponse = <T>(statusCode: ResponseCodes, body: T): ApiResponse => {
   return {
     statusCode,
     headers: {},
-    message,
-    ...body != null && ({ body })
+    isBase64Encoded: false,
+    body: JSON.stringify(body)
   }
 }
