@@ -16,15 +16,13 @@ const nodeJsFunctionProps = {
  * @param name - Name of Lambda
  * @param entry - Entry point of Lambda code (.ts)
  * @param handler - Function name of Lambda code
- * @param isProd - Conditional to apply stricter deployment rules
  * @returns 
  */
 export const createNodeLambdaFunction = (
   stack: PhotoStack,
   name: string,
   entry: string,
-  handler: string,
-  isProd: boolean = false
+  handler: string
 ): any => {
   return new NodejsFunction(stack, name, {
     entry,

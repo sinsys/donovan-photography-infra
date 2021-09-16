@@ -9,15 +9,13 @@ import { LambdaFuncs } from '../interfaces'
  * @param id - ID of API Gateway
  * @param restApiName - Name of REST Api
  * @param lambdaFunctions - Custom Node Lambda function packages
- * @param isProd - Conditional to apply stricter deployment rules
  * @returns - API Gateway
  */
 export const createProjectsApi = (
   stack: PhotoStack,
   id: string,
   restApiName: string,
-  lambdaFunctions: LambdaFuncs,
-  isProd: boolean = false
+  lambdaFunctions: LambdaFuncs
 ): RestApi => {
   const api = new RestApi(stack, id, { restApiName })
   const base = api.root.addResource('projects')

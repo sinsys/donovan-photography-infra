@@ -31,8 +31,7 @@ export class PhotoStack extends Stack {
         this,
         config.name,
         config.entry,
-        config.handler,
-        env.DEPLOY_ENV === 'production'
+        config.handler
       )
       // Grant access to database
       projectDdb.grantReadWriteData(acc[key])
@@ -44,8 +43,7 @@ export class PhotoStack extends Stack {
       this,
       `${env.REST_API_ID}-${env.DEPLOY_ENV}`,
       `${env.REST_API_NAME}-${env.DEPLOY_ENV}`,
-      lambdaFunctions,
-      env.DEPLOY_ENV === 'production'
+      lambdaFunctions
     )
   }
 }

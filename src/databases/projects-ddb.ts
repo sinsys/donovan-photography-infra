@@ -1,7 +1,6 @@
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
 import { RemovalPolicy } from '@aws-cdk/core'
 import { PhotoStack } from '../infra-stack'
-import env from '../env'
 
 /**
  * Creates Table in Dynamo
@@ -13,7 +12,7 @@ import env from '../env'
 export const createProjectsTable = (
   stack: PhotoStack,
   ddbName: string,
-  isProd: boolean = env.DEPLOY_ENV === 'production'
+  isProd = false
 ): Table => {
   return new Table(stack, ddbName, {
     partitionKey: {
@@ -35,7 +34,7 @@ export const createProjectsTable = (
  * @returns { RemovalPolicy }
  */
 export const setRemovalPolicy = (
-  isProd: boolean = env.DEPLOY_ENV === 'production'
+  isProd = false
 ): RemovalPolicy => {
   return isProd === true
     ? RemovalPolicy.RETAIN

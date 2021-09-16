@@ -1,14 +1,17 @@
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert'
 import { App } from '@aws-cdk/core'
+import { Table } from '@aws-cdk/aws-dynamodb'
 import { PhotoStack } from '../src/infra-stack'
+import { createProjectsTable } from '../src/databases/projects-ddb'
 import env from '../src/env'
 
 describe('resources', () => {
   it('creates projects database', () => {
+    // Arrange
     const app = new App()
-    // WHEN
+    // Act
     const stack = new PhotoStack(app, `${env.APP_NAME}-${env.DEPLOY_ENV}`)
-    // THEN
+    // Assert
     expectCDK(stack).to(
       haveResource('AWS::DynamoDB::Table')
     )
