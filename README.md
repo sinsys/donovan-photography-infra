@@ -5,15 +5,17 @@
     - [Database](#database)
       - [Projects](#projects)
     - [Storage](#storage)
+      - [Photos Bucket](#photos-bucket)
     - [Users](#users)
+      - [User Pool](#user-pool)
     - [Functions](#functions)
       - [Lambdas](#lambdas)
-        - [Get Photo](#get-photo)
-        - [Delete Photo](#delete-photo)
-        - [Get Project](#get-project)
-        - [Delete Project](#delete-project)
-        - [Create Project](#create-project)
-        - [Update Project](#update-project)
+        - [getPhoto](#getphoto)
+        - [deletePhoto](#deletephoto)
+        - [getProject](#getproject)
+        - [deleteProject](#deleteproject)
+        - [createProject](#createproject)
+        - [updateProject](#updateproject)
     - [API Gateway](#api-gateway)
       - [Projects API](#projects-api)
   - [Contribution](#contribution)
@@ -60,31 +62,41 @@ This database serves as a symbolic link between user accounts and S3 storage loc
 > Schema: TBD
 
 ### Storage
-Amazon S3 will serve as a mechanism to store photos uploaded for clients <tbd>
-> [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+[Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html) will serve as a mechanism to store photos uploaded for clients <tbd>
+
+#### Photos Bucket
+tbd
 
 ### Users
-Cognito will serve as an authentication protocol to grant access to purchased content <tbd>
-> [Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
+[Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html) will serve as an authentication protocol to grant access to purchased content <tbd>
+
+#### User Pool
+tbd
 
 ### Functions
 #### Lambdas
-##### Get Photo
-> This retrieves a photo from S3 storage
-##### Delete Photo
-> This deletes a photo from S3 storage
-##### Get Project
-> This retrieves a project's details from S3 storage
-##### Delete Project
-> This deletes a project from S3 storage
-##### Create Project
-> This creates a new project
-##### Update Project
-> This updates an existing project
+##### getPhoto
+This retrieves a photo from S3 storage
+
+##### deletePhoto
+This deletes a photo from S3 storage
+
+##### getProject
+This retrieves a project's details from S3 storage
+
+##### deleteProject
+This deletes a project from S3 storage
+
+##### createProject
+This creates a new project
+
+##### updateProject
+This updates an existing project
 
 ### API Gateway
 #### Projects API
 This API has 6 resources available:
+
 ```bash
  - GET     /projects/{id}
  - DELETE  /projects/{id}
