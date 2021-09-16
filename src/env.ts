@@ -3,7 +3,6 @@ import { cleanEnv, str, ReporterOptions } from 'envalid'
 /** Basic extention of built in error reporter - more human readable logs */
 export const reporter = ({ errors }: ReporterOptions): void => {
   if (Object.keys(errors).length > 0) {
-    console.error(errors)
     throw new Error(
       `[ENV ERROR]: There is a problem with ${Object.keys(errors).join(', ')}`
     )
@@ -18,6 +17,7 @@ const env = cleanEnv(
   {
     // BASE
     APP_NAME: str(),
+    APP_CLIENT_ID: str(),
 
     // RESOURCES
     PHOTOS_TABLE_NAME: str(),
@@ -25,6 +25,8 @@ const env = cleanEnv(
     PROJECTS_TABLE_NAME: str(),
     COGNITO_POOL_NAME: str(),
     COGNITO_POOL_ID: str(),
+    COGNITO_DOMAIN: str(),
+    COGNITO_DOMAIN_PREFIX: str(),
     REST_API_NAME: str(),
     REST_API_ID: str(),
     RESOURCE_SERVER_NAME: str(),

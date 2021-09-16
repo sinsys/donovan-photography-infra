@@ -49,7 +49,7 @@ export class PhotoStack extends Stack {
       }
     )
 
-    userPool.addClient('frontend-client', {
+    userPool.addClient(`${env.APP_CLIENT_ID}-${env.DEPLOY_ENV}`, {
       generateSecret: true,
       oAuth: {
         flows: {
