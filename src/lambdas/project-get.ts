@@ -1,7 +1,6 @@
 import { Handler, Context } from 'aws-lambda'
 import { ApiErrorCodes, IProjectGetRequest, ProcessError } from '../interfaces'
 import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
-import { inspect } from 'util'
 
 /**
  * Gets a project details

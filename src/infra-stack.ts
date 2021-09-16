@@ -97,6 +97,11 @@ export class PhotoStack extends Stack {
       `${env.REST_API_NAME}-${env.DEPLOY_ENV}`,
       lambdaFunctions
     )
-    Log(console.debug, 'Orphaned resources', typeof resourceServer, typeof projectApi)
+    Log(
+      console.debug,
+      'Orphaned resources',
+      typeof resourceServer,
+      typeof projectApi
+    )
   }
 }

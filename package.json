@@ -12,19 +12,6 @@
     "deploy": "cdk deploy",
     "test": "NODE_ENV=test jest --ci --verbose"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
-    ]
-  },
-  "lint-prepush": {
-    "base": "develop",
-    "tasks": {
-      "*.{js,jsx,ts,tsx}": [
-        "eslint --fix"
-      ]
-    }
-  },
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^1.122.0",
     "@aws-cdk/aws-cognito": "^1.122.0",

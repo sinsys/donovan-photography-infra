@@ -9,10 +9,25 @@ describe('utils', () => {
       const expectedLogs = ['foo', inspect({ key: 'val' }, false, null), 'bar']
       const consoleSpy = jest
         .spyOn(console, 'info')
-        .mockImplementation(() => {})
+        .mockImplementation(() => '')
 
       // Act
       Log(console.info, 'foo', { key: 'val' }, 'bar')
+
+      // Assert
+      expect(consoleSpy).toHaveBeenCalledWith(...expectedLogs)
+      consoleSpy.mockRestore()
+    })
+    it('defaults to console.info', () => {
+      // Arrange
+      expect.hasAssertions()
+      const expectedLogs = ['foo', inspect({ key: 'val' }, false, null), 'bar']
+      const consoleSpy = jest
+        .spyOn(console, 'info')
+        .mockImplementation(() => '')
+
+      // Act
+      Log(undefined, 'foo', { key: 'val' }, 'bar')
 
       // Assert
       expect(consoleSpy).toHaveBeenCalledWith(...expectedLogs)

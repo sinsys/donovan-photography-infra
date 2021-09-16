@@ -10,5 +10,5 @@ export interface IProjectGetRequest extends ApiRequest<null> {
 /** Details about a project */
 export interface IProjectGetResponse {
   projectId: string
-  files: any[]
+  files: string[]
 }

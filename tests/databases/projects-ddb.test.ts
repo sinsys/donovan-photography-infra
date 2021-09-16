@@ -27,6 +27,7 @@ describe('database', () => {
   describe('createProjectsTable', () => {
     it('missing optional argument satisfies default value', () => {
       // Arrange
+      expect.hasAssertions()
       const app = new App()
       const stack = new PhotoStack(app, `${env.APP_NAME}-${env.DEPLOY_ENV}`)
       // Act

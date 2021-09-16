@@ -16,7 +16,7 @@ import { Log } from './log'
 export const ApiError = (
   code: ApiErrorCodes,
   message: string,
-  ...args: any[]
+  ...args: unknown[]
 ): ProcessError => {
   const errMsg = `[${code}]: ${message}`
   Log(console.error, errMsg, ...args)

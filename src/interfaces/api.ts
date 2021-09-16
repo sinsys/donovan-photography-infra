@@ -15,7 +15,9 @@ export interface ApiResponse {
 
 /** Api Request for API Gateway */
 export interface ApiRequest<T> {
-  headers: any
+  headers: {
+    [key: string]: string
+  }
   httpMethod: string
   body?: T
   queryStringParameters: {
