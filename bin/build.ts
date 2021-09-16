@@ -21,5 +21,4 @@ export const buildApp = async (): Promise<void> => {
   }
 }
 
-buildApp()
-  .catch(err => Log(console.error, 'Unable to build app stack', err))
+buildApp().catch((err) => Log(console.error, 'Unable to build app stack', err))

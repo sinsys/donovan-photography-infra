@@ -17,14 +17,14 @@ export const createProjectsTable = (
   return new Table(stack, ddbName, {
     partitionKey: {
       name: 'PK',
-      type: AttributeType.STRING
+      type: AttributeType.STRING,
     },
     sortKey: {
       name: 'SK',
-      type: AttributeType.STRING
+      type: AttributeType.STRING,
     },
     tableName: ddbName,
-    removalPolicy: setRemovalPolicy(isProd)
+    removalPolicy: setRemovalPolicy(isProd),
   })
 }
 
@@ -33,10 +33,6 @@ export const createProjectsTable = (
  * @param isProd - Sets removal policy to retain if true
  * @returns { RemovalPolicy }
  */
-export const setRemovalPolicy = (
-  isProd = false
-): RemovalPolicy => {
-  return isProd === true
-    ? RemovalPolicy.RETAIN
-    : RemovalPolicy.DESTROY
+export const setRemovalPolicy = (isProd = false): RemovalPolicy => {
+  return isProd === true ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY
 }

@@ -13,14 +13,13 @@ describe('reportError', () => {
     const expectedThrowMsg = '[ENV ERROR]: There is a problem with BAR, FOO'
     const expectedErrors = {
       BAR: Error('Bar is undefined'),
-      FOO: Error('Foo is undefined')
+      FOO: Error('Foo is undefined'),
     }
     const input = {
       errors: expectedErrors,
-      env: {}
+      env: {},
     }
-    expect(() => reporter(input))
-      .toThrow(expectedThrowMsg)
+    expect(() => reporter(input)).toThrow(expectedThrowMsg)
     expect(consoleSpy).toHaveBeenNthCalledWith(1, expectedErrors)
     consoleSpy.mockRestore()
   })

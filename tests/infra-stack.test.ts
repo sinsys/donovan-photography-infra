@@ -10,8 +10,6 @@ describe('resources', () => {
     // Act
     const stack = new PhotoStack(app, `${env.APP_NAME}-${env.DEPLOY_ENV}`)
     // Assert
-    expectCDK(stack).to(
-      haveResource('AWS::DynamoDB::Table')
-    )
+    expectCDK(stack).to(haveResource('AWS::DynamoDB::Table'))
   })
 })

@@ -7,7 +7,7 @@ import env from '../env'
 /** Common Node Lambda properties */
 const nodeJsFunctionProps = {
   bundling: {},
-  runtime: Runtime.NODEJS_14_X
+  runtime: Runtime.NODEJS_14_X,
 }
 
 /**
@@ -16,18 +16,18 @@ const nodeJsFunctionProps = {
  * @param name - Name of Lambda
  * @param entry - Entry point of Lambda code (.ts)
  * @param handler - Function name of Lambda code
- * @returns 
+ * @returns
  */
 export const createNodeLambdaFunction = (
   stack: PhotoStack,
   name: string,
   entry: string,
   handler: string
-): any => {
+): NodejsFunction => {
   return new NodejsFunction(stack, name, {
     entry,
     handler,
-    ...nodeJsFunctionProps
+    ...nodeJsFunctionProps,
   })
 }
 
@@ -41,36 +41,36 @@ export const lambdaMap: {
     method: 'GET',
     name: `fn-photo-get-${env.DEPLOY_ENV}`,
     entry: 'src/lambdas/photo-get.ts',
-    handler: 'getPhoto'
+    handler: 'getPhoto',
   },
   deletePhoto: {
     method: 'DELETE',
     name: `fn-photo-delete-${env.DEPLOY_ENV}`,
     entry: 'src/lambdas/photo-delete.ts',
-    handler: 'deletePhoto'
+    handler: 'deletePhoto',
   },
   getProject: {
     method: 'GET',
     name: `fn-project-get-${env.DEPLOY_ENV}`,
     entry: 'src/lambdas/photo-get.ts',
-    handler: 'getPhoto'
+    handler: 'getPhoto',
   },
   deleteProject: {
     method: 'DELETE',
     name: `fn-project-delete-${env.DEPLOY_ENV}`,
     entry: 'src/lambdas/project-delete.ts',
-    handler: 'deleteProject'
+    handler: 'deleteProject',
   },
   createProject: {
     method: 'POST',
     name: `fn-project-create-${env.DEPLOY_ENV}`,
     entry: 'src/lambdas/project-create.ts',
-    handler: 'createProject'
+    handler: 'createProject',
   },
   updateProject: {
     method: 'PUT',
     name: `fn-project-update-${env.DEPLOY_ENV}`,
     entry: 'src/lambdas/project-update.ts',
-    handler: 'updateProject'
+    handler: 'updateProject',
   },
 }

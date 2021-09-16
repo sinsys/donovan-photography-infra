@@ -5,6 +5,9 @@ cdk.out
 
 # Webpack directories
 .webpack
+.eslintrc.js
+babel.config.js
+jest.config.js
 
 .env
 .env.dev

@@ -4,21 +4,34 @@
   "description": "Infrastructure for Donovan Photography",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --write .",
+    "lint": "eslint .",
     "cdk": "cdk",
     "synth": "cdk synth",
     "deploy": "cdk deploy",
     "test": "NODE_ENV=test jest --ci --verbose"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "lint-prepush": {
+    "base": "develop",
+    "tasks": {
+      "*.{js,jsx,ts,tsx}": [
+        "eslint --fix"
+      ]
+    }
+  },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.121.0",
-    "@aws-cdk/aws-dynamodb": "^1.121.0",
-    "@aws-cdk/aws-lambda": "^1.121.0",
+    "@aws-cdk/aws-apigateway": "^1.122.0",
+    "@aws-cdk/aws-cognito": "^1.122.0",
+    "@aws-cdk/aws-dynamodb": "^1.122.0",
+    "@aws-cdk/aws-lambda": "^1.122.0",
     "@aws-cdk/aws-lambda-nodejs": "^1.122.0",
-    "@aws-cdk/aws-stepfunctions": "^1.121.0",
-    "@aws-cdk/aws-stepfunctions-tasks": "^1.121.0",
-    "envalid": "^6.0.2",
-    "tsconfig-paths": "^3.11.0",
-    "tscpaths": "0.0.9"
+    "envalid": "^6.0.2"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.122.0",
@@ -30,7 +43,7 @@
     "@types/node": "^14.17.14",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^4.30.0",
-    "aws-cdk": "^1.121.0",
+    "aws-cdk": "^1.122.0",
     "babel-jest": "^26.6.3",
     "esbuild": "^0.12.28",
     "eslint": "^7.32.0",
@@ -48,10 +61,6 @@
     "module-alias": "^2.2.2",
     "moq.ts": "^6.4.0",
     "prettier": "^2.3.2",
-    "serverless": "^2.39.0",
-    "serverless-bundle": "^5.0.1",
-    "serverless-dotenv-plugin": "^3.9.0",
-    "serverless-webpack": "^5.5.4",
     "ts-loader": "^5.4.5",
     "typescript": "^4.4.3",
     "webpack": "^4.46.0",
@@ -59,7 +68,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "author": {
-    "name": "Nicholas Hazel <nicholas.hazel@gmail.com>"
+    "name": "Nicholas Hazel <nico.full.stack.dev@gmail.com>"
   },
   "license": "UNLICENSED"
 }

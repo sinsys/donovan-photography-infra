@@ -8,7 +8,7 @@ export interface ApiResponse {
   statusCode: ResponseCodes
   headers: {
     [key: string]: string
-  },
+  }
   isBase64Encoded: boolean
   body: string
 }

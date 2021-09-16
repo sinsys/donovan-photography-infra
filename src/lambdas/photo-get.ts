@@ -1,5 +1,10 @@
 import { Handler, Context } from 'aws-lambda'
-import { ApiErrorCodes, IPhotoGetRequest, IPhotoGetResponse, ProcessError } from '../interfaces'
+import {
+  ApiErrorCodes,
+  IPhotoGetRequest,
+  IPhotoGetResponse,
+  ProcessError,
+} from '../interfaces'
 import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
 
 /**
@@ -7,25 +12,23 @@ import { isValidString, ApiError, makeApiResponse, Log } from '../utils'
  * @param event - API Request
  * @returns - Resource ID for image in storage
  */
-export const getPhoto: Handler = async (event: IPhotoGetRequest, _context: Context) => {
+export const getPhoto: Handler = async (
+  event: IPhotoGetRequest,
+  _context: Context
+) => {
   try {
     Log(console.debug, '[PHOTO][GET][START]')
-    const {
-      photoId,
-      id: projectId
-    } = event?.pathParameters ?? {}
+    const { photoId, id: projectId } = event?.pathParameters ?? {}
 
     if (!isValidString(photoId) || !isValidString(projectId)) {
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
     Log(console.debug, '[PHOTO][GET][SUCCESS]', { photoId, projectId })
-    return makeApiResponse<IPhotoGetResponse>(
-      200, {
-        photoId,
-        projectId,
-        location: 's3://someplace'
-      }
-    )
+    return makeApiResponse<IPhotoGetResponse>(200, {
+      photoId,
+      projectId,
+      location: 's3://someplace',
+    })
   } catch (err) {
     if (err instanceof ProcessError) {
       throw err

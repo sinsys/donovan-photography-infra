@@ -1,0 +1,10 @@
+// eslint only
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src",
+    "tests",
+    "bin",
+    ".eslintrc.js"
+  ]
+}

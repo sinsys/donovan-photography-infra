@@ -7,7 +7,10 @@ import { inspect } from 'util'
  * Gets a project details
  * @param event - API Request
  */
-export const getProject: Handler = async (event: IProjectGetRequest, _context: Context) => {
+export const getProject: Handler = async (
+  event: IProjectGetRequest,
+  _context: Context
+) => {
   try {
     Log(console.debug, '[PROJECT][CREATE][START]')
     const projectId = event?.pathParameters?.id
@@ -15,12 +18,10 @@ export const getProject: Handler = async (event: IProjectGetRequest, _context: C
       throw ApiError(ApiErrorCodes.BR, 'Invalid input', event)
     }
     Log(console.debug, '[PROJECT][CREATE][SUCCESS]')
-    return makeApiResponse(
-      201, {
-        projectId,
-        files: []
-      }
-    )
+    return makeApiResponse(201, {
+      projectId,
+      files: [],
+    })
   } catch (err) {
     if (err instanceof ProcessError) {
       throw err
