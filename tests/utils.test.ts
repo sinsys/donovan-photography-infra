@@ -1,4 +1,6 @@
-import { Log } from '../src/utils'
+import { RemovalPolicy } from '@aws-cdk/core'
+import { AccountRecovery } from '@aws-cdk/aws-cognito'
+import { Log, setRemovalPolicy, setAccountRecovery } from '../src/utils'
 import { inspect } from 'util'
 
 describe('utils', () => {
@@ -32,6 +34,38 @@ describe('utils', () => {
       // Assert
       expect(consoleSpy).toHaveBeenCalledWith(...expectedLogs)
       consoleSpy.mockRestore()
+    })
+  })
+  describe('setAccountRecovery', () => {
+    it.each`
+      input        | output
+      ${undefined} | ${AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA}
+      ${'unknown'} | ${AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA}
+      ${false}     | ${AccountRecovery.EMAIL_AND_PHONE_WITHOUT_MFA}
+      ${true}      | ${AccountRecovery.EMAIL_ONLY}
+    `('should return $input for $output', ({ input, output }) => {
+      // Arrange
+      const expected = output
+      // Act
+      const actual = setAccountRecovery(input)
+      // Assert
+      expect(actual).toStrictEqual(expected)
+    })
+  })
+  describe('setRemovalPolicy', () => {
+    it.each`
+      input        | output
+      ${undefined} | ${RemovalPolicy.DESTROY}
+      ${'unknown'} | ${RemovalPolicy.DESTROY}
+      ${false}     | ${RemovalPolicy.DESTROY}
+      ${true}      | ${RemovalPolicy.RETAIN}
+    `('should return $input for $output', ({ input, output }) => {
+      // Arrange
+      const expected = output
+      // Act
+      const actual = setRemovalPolicy(input)
+      // Assert
+      expect(actual).toStrictEqual(expected)
     })
   })
 })

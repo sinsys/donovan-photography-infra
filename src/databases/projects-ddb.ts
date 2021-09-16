@@ -1,7 +1,6 @@
 import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
-import { RemovalPolicy } from '@aws-cdk/core'
 import { PhotoStack } from '../infra-stack'
-
+import { setRemovalPolicy } from '../utils'
 /**
  * Creates Table in Dynamo
  * @param stack - Stack to add database table to
@@ -26,13 +25,4 @@ export const createProjectsTable = (
     tableName: ddbName,
     removalPolicy: setRemovalPolicy(isProd),
   })
-}
-
-/**
- * Sets removal policy for database table
- * @param isProd - Sets removal policy to retain if true
- * @returns { RemovalPolicy }
- */
-export const setRemovalPolicy = (isProd = false): RemovalPolicy => {
-  return isProd === true ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY
 }

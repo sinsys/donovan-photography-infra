@@ -1,14 +1,18 @@
 import { App, Stack, StackProps } from '@aws-cdk/core'
-import { UserPool, CfnUserPoolResourceServer } from '@aws-cdk/aws-cognito'
+import {
+  UserPool,
+  CfnUserPoolResourceServer,
+  StringAttribute,
+} from '@aws-cdk/aws-cognito'
 import { createProjectsTable } from './databases'
 import {
   createProjectsApi,
   lambdaMap,
   createNodeLambdaFunction,
 } from './api-gateway'
+import { Log, setAccountRecovery, setRemovalPolicy } from '../src/utils'
 import { LambdaConfig, LambdaFuncs } from './interfaces'
 import env from './env'
-import { Log } from '../src/utils'
 
 /**
  * Creates a Cloud Formation Stack in AWS
@@ -21,17 +25,55 @@ export class PhotoStack extends Stack {
   constructor(scope: App, id: string, props?: StackProps) {
     super(scope, id, props)
 
+    /** I'M BROKEN!!!!!! */
     /* COGNITO USER POOL */
+    // 👇 User Pool
     const userPool = new UserPool(
       this,
       `${env.COGNITO_POOL_ID}-${env.DEPLOY_ENV}`,
       {
         userPoolName: `${env.COGNITO_POOL_NAME}-${env.DEPLOY_ENV}`,
+        selfSignUpEnabled: true,
         signInAliases: {
           email: true,
         },
+        autoVerify: {
+          email: true,
+        },
+        standardAttributes: {
+          givenName: {
+            required: true,
+            mutable: true,
+          },
+          familyName: {
+            required: true,
+            mutable: true,
+          },
+        },
+        customAttributes: {
+          isAdmin: new StringAttribute({ mutable: true }),
+        },
+        passwordPolicy: {
+          minLength: 6,
+          requireLowercase: true,
+          requireDigits: true,
+          requireUppercase: false,
+          requireSymbols: false,
+        },
+        accountRecovery: setAccountRecovery(env.DEPLOY_ENV === 'production'),
+        removalPolicy: setRemovalPolicy(env.DEPLOY_ENV === 'production'),
       }
     )
+
+    // 👇 OPTIONALLY update Email sender for Cognito Emails
+    // const cfnUserPool: CfnUserPool = userPool.node.defaultChild
+    // cfnUserPool.emailConfiguration = {
+    //   emailSendingAccount: 'DEVELOPER',
+    //   replyToEmailAddress: 'YOUR_EMAIL@example.com',
+    //   sourceArn: `arn:aws:ses:YOUR_COGNITO_SES_REGION:${
+    //     Stack.of(this).account
+    //   }:identity/YOUR_EMAIL@example.com`,
+    // }
 
     const resourceServer = new CfnUserPoolResourceServer(
       this,
