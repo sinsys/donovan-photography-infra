@@ -58,6 +58,12 @@ export class PhotoStack extends Stack {
         scopes: [], // Todo
       },
     })
+
+    userPool.addDomain(`${env.COGNITO_DOMAIN}-${env.DEPLOY_ENV}`, {
+      cognitoDomain: {
+        domainPrefix: `${env.COGNITO_DOMAIN_PREFIX}-${env.DEPLOY_ENV}`,
+      },
+    })
     /* PROJECTS DATABASE */
     const projectDdb = createProjectsTable(
       this,
