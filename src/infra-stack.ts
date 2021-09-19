@@ -1,16 +1,20 @@
-import { App, Stack, StackProps } from '@aws-cdk/core'
+import { App, Stack, StackProps, CfnOutput } from 'aws-cdk-lib'
 import {
   UserPool,
-  CfnUserPoolResourceServer,
+  ClientAttributes,
   StringAttribute,
-} from '@aws-cdk/aws-cognito'
+  UserPoolClient,
+  UserPoolClientIdentityProvider,
+} from 'aws-cdk-lib/aws-cognito'
+// import { HttpUserPoolAuthorizer } from '@aws-cdk/aws-apigatewayv2-authorizers'
+// import { LambdaProxyIntegration } from '@aws-cdk/aws-apigatewayv2-integrations'
 import { createProjectsTable } from './databases'
 import {
   createProjectsApi,
   lambdaMap,
   createNodeLambdaFunction,
 } from './api-gateway'
-import { Log, setAccountRecovery, setRemovalPolicy } from '../src/utils'
+import { setAccountRecovery, setRemovalPolicy } from '../src/utils'
 import { LambdaConfig, LambdaFuncs } from './interfaces'
 import env from './env'
 
@@ -25,87 +29,82 @@ export class PhotoStack extends Stack {
   constructor(scope: App, id: string, props?: StackProps) {
     super(scope, id, props)
 
-    /** I'M BROKEN!!!!!! */
     /* COGNITO USER POOL */
-    // 👇 User Pool
-    const userPool = new UserPool(
-      this,
-      `${env.COGNITO_POOL_ID}-${env.DEPLOY_ENV}`,
+    const userPool = new UserPool(this, 'userpool', {
+      userPoolName: 'my-user-pool',
+      selfSignUpEnabled: true,
+      signInAliases: {
+        email: true,
+      },
+      autoVerify: {
+        email: true,
+      },
+      standardAttributes: {
+        givenName: {
+          required: true,
+          mutable: true,
+        },
+        familyName: {
+          required: true,
+          mutable: true,
+        },
+      },
+      customAttributes: {
+        isAdmin: new StringAttribute({ mutable: true }),
+      },
+      passwordPolicy: {
+        minLength: 6,
+        requireLowercase: true,
+        requireDigits: true,
+        requireUppercase: false,
+        requireSymbols: false,
+      },
+      accountRecovery: setAccountRecovery(env.DEPLOY_ENV === 'production'),
+      removalPolicy: setRemovalPolicy(env.DEPLOY_ENV === 'production'),
+    })
+
+    // 👇 User Pool Client attributes
+    const standardCognitoAttributes = {
+      givenName: true,
+      familyName: true,
+      email: true,
+      emailVerified: true,
+      phoneNumber: true,
+      phoneNumberVerified: true,
+    }
+
+    const clientReadAttributes = new ClientAttributes()
+      .withStandardAttributes(standardCognitoAttributes)
+      .withCustomAttributes(...['isAdmin'])
+
+    const clientWriteAttributes = new ClientAttributes().withStandardAttributes(
       {
-        userPoolName: `${env.COGNITO_POOL_NAME}-${env.DEPLOY_ENV}`,
-        selfSignUpEnabled: true,
-        signInAliases: {
-          email: true,
-        },
-        autoVerify: {
-          email: true,
-        },
-        standardAttributes: {
-          givenName: {
-            required: true,
-            mutable: true,
-          },
-          familyName: {
-            required: true,
-            mutable: true,
-          },
-        },
-        customAttributes: {
-          isAdmin: new StringAttribute({ mutable: true }),
-        },
-        passwordPolicy: {
-          minLength: 6,
-          requireLowercase: true,
-          requireDigits: true,
-          requireUppercase: false,
-          requireSymbols: false,
-        },
-        accountRecovery: setAccountRecovery(env.DEPLOY_ENV === 'production'),
-        removalPolicy: setRemovalPolicy(env.DEPLOY_ENV === 'production'),
+        ...standardCognitoAttributes,
+        emailVerified: false,
+        phoneNumberVerified: false,
       }
     )
 
-    // 👇 OPTIONALLY update Email sender for Cognito Emails
-    // const cfnUserPool: CfnUserPool = userPool.node.defaultChild
-    // cfnUserPool.emailConfiguration = {
-    //   emailSendingAccount: 'DEVELOPER',
-    //   replyToEmailAddress: 'YOUR_EMAIL@example.com',
-    //   sourceArn: `arn:aws:ses:YOUR_COGNITO_SES_REGION:${
-    //     Stack.of(this).account
-    //   }:identity/YOUR_EMAIL@example.com`,
-    // }
-
-    const resourceServer = new CfnUserPoolResourceServer(
-      this,
-      `${env.RESOURCE_SERVER_ID}-${env.DEPLOY_ENV}`,
-      {
-        identifier: 'https://resource-server/',
-        name: `${env.RESOURCE_SERVER_NAME}-${env.DEPLOY_ENV}`,
-        userPoolId: userPool.userPoolId,
-        scopes: [
-          {
-            scopeDescription: 'projectsApi',
-            scopeName: 'useProjectsApi',
-          },
-        ],
-      }
-    )
-
-    userPool.addClient(`${env.APP_CLIENT_ID}-${env.DEPLOY_ENV}`, {
-      generateSecret: true,
-      oAuth: {
-        flows: {
-          clientCredentials: true,
-        },
-        scopes: [], // Todo
+    const userPoolClient = new UserPoolClient(this, 'userpool-client', {
+      userPool,
+      authFlows: {
+        adminUserPassword: true,
+        custom: true,
+        userSrp: true,
       },
+      supportedIdentityProviders: [UserPoolClientIdentityProvider.COGNITO],
+      readAttributes: clientReadAttributes,
+      writeAttributes: clientWriteAttributes,
     })
 
-    userPool.addDomain(`${env.COGNITO_DOMAIN}-${env.DEPLOY_ENV}`, {
-      cognitoDomain: {
-        domainPrefix: `${env.COGNITO_DOMAIN_PREFIX}-${env.DEPLOY_ENV}`,
-      },
+    // Outputs
+    new CfnOutput(this, 'userPoolId', {
+      value: userPool.userPoolId,
     })
+    new CfnOutput(this, 'userPoolClientId', {
+      value: userPoolClient.userPoolClientId,
+    })
+
     /* PROJECTS DATABASE */
     const projectDdb = createProjectsTable(
       this,
@@ -133,17 +132,18 @@ export class PhotoStack extends Stack {
     )
 
     /* API GATEWAY */
-    const projectApi = createProjectsApi(
+    createProjectsApi(
       this,
       `${env.REST_API_ID}-${env.DEPLOY_ENV}`,
       `${env.REST_API_NAME}-${env.DEPLOY_ENV}`,
       lambdaFunctions
     )
-    Log(
-      console.debug,
-      'Orphaned resources',
-      typeof resourceServer,
-      typeof projectApi
-    )
+
+    // 👇 create the Authorizer
+    // const authorizer = new HttpUserPoolAuthorizer({
+    //   userPool,
+    //   userPoolClient,
+    //   identitySource: ['$request.header.Authorization'],
+    // });
   }
 }

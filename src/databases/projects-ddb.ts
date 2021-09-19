@@ -1,4 +1,4 @@
-import { AttributeType, Table } from '@aws-cdk/aws-dynamodb'
+import { AttributeType, Table } from 'aws-cdk-lib/aws-dynamodb'
 import { PhotoStack } from '../infra-stack'
 import { setRemovalPolicy } from '../utils'
 /**

@@ -1,5 +1,5 @@
-import { App } from '@aws-cdk/core'
-import { Table } from '@aws-cdk/aws-dynamodb'
+import { App } from 'aws-cdk-lib'
+import { Table } from 'aws-cdk-lib/aws-dynamodb'
 import { createProjectsTable } from '../../src/databases/projects-ddb'
 import { PhotoStack } from '../../src/infra-stack'
 import env from '../../src/env'

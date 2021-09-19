@@ -3,8 +3,8 @@ import {
   IResource,
   MockIntegration,
   PassthroughBehavior,
-} from '@aws-cdk/aws-apigateway'
-import { LambdaIntegration } from '@aws-cdk/aws-apigateway'
+} from 'aws-cdk-lib/aws-apigateway'
+import { LambdaIntegration } from 'aws-cdk-lib//aws-apigateway'
 import { PhotoStack } from '../infra-stack'
 import { LambdaFuncs } from '../interfaces'
 

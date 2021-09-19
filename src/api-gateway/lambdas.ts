@@ -1,8 +1,8 @@
-import { Runtime } from '@aws-cdk/aws-lambda'
-import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
-import { PhotoStack } from '../infra-stack'
+import { Runtime } from 'aws-cdk-lib/aws-lambda'
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { LambdaConfig } from '../interfaces'
 import env from '../env'
+import { Construct } from 'constructs'
 
 /** Common Node Lambda properties */
 const nodeJsFunctionProps = {
@@ -12,19 +12,19 @@ const nodeJsFunctionProps = {
 
 /**
  * Creates bundled Node Lambda functions in the provided Stack
- * @param stack - Stack to add Lambda function to
+ * @param construct - Construct to add Lambda to
  * @param name - Name of Lambda
  * @param entry - Entry point of Lambda code (.ts)
  * @param handler - Function name of Lambda code
  * @returns
  */
 export const createNodeLambdaFunction = (
-  stack: PhotoStack,
+  construct: Construct,
   name: string,
   entry: string,
   handler: string
 ): NodejsFunction => {
-  return new NodejsFunction(stack, name, {
+  return new NodejsFunction(construct, name, {
     entry,
     handler,
     ...nodeJsFunctionProps,

@@ -1,5 +1,5 @@
-import { RemovalPolicy } from '@aws-cdk/core'
-import { AccountRecovery } from '@aws-cdk/aws-cognito'
+import { RemovalPolicy } from 'aws-cdk-lib'
+import { AccountRecovery } from 'aws-cdk-lib/aws-cognito'
 
 /**
  * Sets removal policy

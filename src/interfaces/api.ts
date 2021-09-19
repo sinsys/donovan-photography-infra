@@ -1,4 +1,4 @@
-import { NodejsFunction } from '@aws-cdk/aws-lambda-nodejs'
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 
 /** Status Codes */
 export type ResponseCodes = 200 | 201 | 203 | 400 | 404 | 500
